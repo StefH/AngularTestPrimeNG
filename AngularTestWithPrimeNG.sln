@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DDAB8DC2-51B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularTest", "src\AngularTest.csproj", "{5780FB5F-EDDC-4AA3-9B8D-94E886499C9D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularPrimeNGTest", "AngularPrimeNGTest\AngularPrimeNGTest.csproj", "{EE1C381D-2D7A-4A0D-A125-3CC2ED403E5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +19,16 @@ Global
 		{5780FB5F-EDDC-4AA3-9B8D-94E886499C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5780FB5F-EDDC-4AA3-9B8D-94E886499C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5780FB5F-EDDC-4AA3-9B8D-94E886499C9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1C381D-2D7A-4A0D-A125-3CC2ED403E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1C381D-2D7A-4A0D-A125-3CC2ED403E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1C381D-2D7A-4A0D-A125-3CC2ED403E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1C381D-2D7A-4A0D-A125-3CC2ED403E5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5780FB5F-EDDC-4AA3-9B8D-94E886499C9D} = {DDAB8DC2-51B0-43BD-A3F6-B2295DF6DC17}
+		{EE1C381D-2D7A-4A0D-A125-3CC2ED403E5D} = {DDAB8DC2-51B0-43BD-A3F6-B2295DF6DC17}
 	EndGlobalSection
 EndGlobal
