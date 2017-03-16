@@ -1,12 +1,17 @@
 import { TestBed, async } from '@angular/core/testing';
 
+import { RouterOutlet } from '@angular/router';
+
 import { AppComponent } from './app.component';
+import { NavMenuComponent } from './navmenu/navmenu.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        RouterOutlet,
+        NavMenuComponent
       ],
     }).compileComponents();
   }));

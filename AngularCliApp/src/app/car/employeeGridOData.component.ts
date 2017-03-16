@@ -1,19 +1,16 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { LazyLoadEvent, FilterMetadata } from 'primeng/primeng';
-import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery } from 'angular2-odata';
+import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery, PagedResult } from 'angular2-odata';
 import { Observable, Operator } from 'rxjs/rx';
 import { IEmployee } from './employee';
+import { NorthwindODataConfigurationFactory } from './NorthwindODataConfigurationFactory';
 
 console.log('`EmployeeGridODataComponent` component loaded asynchronously');
 
 @Component({
     templateUrl: './employeeGridOData.component.html',
     selector: 'my-employee-grid-odata',
-    providers: [ { provide: ODataConfiguration, useFactory: () => {
-        const odataConfig = new ODataConfiguration();
-        odataConfig.baseUrl = 'http://services.odata.org/V4/Northwind/Northwind.svc';
-        return odataConfig; }
-    }, ODataServiceFactory ],
+    providers: [ { provide: ODataConfiguration, useFactory: NorthwindODataConfigurationFactory }, ODataServiceFactory ],
     styleUrls: [ './carGrid.component.css']
 })
 
@@ -59,11 +56,11 @@ export class EmployeeGridODataComponent implements OnInit {
             .Skip(event.first);
 
         if (event.filters) {
-            let filterOData: string[] = [];
-            for (let prop in event.filters) {
+            const filterOData: string[] = [];
+            for (const prop in event.filters) {
                 if (event.filters.hasOwnProperty(prop)) {
-                    let filter = event.filters[prop] as FilterMetadata;
-                    let key: string = filter.matchMode.toLowerCase();
+                    const filter = event.filters[prop] as FilterMetadata;
+                    const key: string = filter.matchMode.toLowerCase();
                     if (key !== '') {
                         filterOData.push(key + '(' + prop + ', \'' + filter.value + '\')');
                     }
@@ -74,13 +71,13 @@ export class EmployeeGridODataComponent implements OnInit {
         }
 
         if (event.sortField) {
-            let sortOrder: string = event.sortOrder > 0 ? 'asc' : 'desc';
+            const sortOrder: string = event.sortOrder > 0 ? 'asc' : 'desc';
             query = query.OrderBy(event.sortField + ' ' + sortOrder);
         }
 
         query
             .ExecWithCount()
-            .subscribe((pagedResult) => {
+            .subscribe((pagedResult: PagedResult<IEmployee>) => {
                     this.employees = pagedResult.data;
                     this.totalRecords = pagedResult.count;
                 },

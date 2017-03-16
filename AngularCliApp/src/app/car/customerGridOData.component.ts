@@ -2,20 +2,17 @@ import { NgModule, Component, Injectable, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { LazyLoadEvent, FilterMetadata } from 'primeng/primeng';
-import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery } from 'angular2-odata';
+import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery, PagedResult } from 'angular2-odata';
 import { Observable, Operator } from 'rxjs/rx';
 import { ICustomer } from './customer';
+import { NorthwindODataConfigurationFactory } from './NorthwindODataConfigurationFactory';
 
 console.log('`CustomerGridODataComponent` component loaded asynchronously');
 
 @Component({
     templateUrl: './customerGridOData.component.html',
     selector: 'my-customer-grid-odata',
-    providers: [ { provide: ODataConfiguration, useFactory: () => {
-        const odata = new ODataConfiguration();
-        odata.baseUrl = 'http://services.odata.org/V4/Northwind/Northwind.svc';
-        return odata; }
-    }, ODataServiceFactory ],
+    providers: [ { provide: ODataConfiguration, useFactory: NorthwindODataConfigurationFactory }, ODataServiceFactory ],
     styleUrls: [ './carGrid.component.css']
 })
 export class CustomerGridODataComponent implements OnInit {
@@ -57,11 +54,11 @@ export class CustomerGridODataComponent implements OnInit {
             .Skip(event.first);
 
         if (event.filters) {
-            let filterOData: string[] = [];
-            for (let prop in event.filters) {
+            const filterOData: string[] = [];
+            for (const prop in event.filters) {
                 if (event.filters.hasOwnProperty(prop)) {
-                    let filter = event.filters[prop] as FilterMetadata;
-                    let key: string = filter.matchMode.toLowerCase();
+                    const filter = event.filters[prop] as FilterMetadata;
+                    const key: string = filter.matchMode.toLowerCase();
                     if (key !== '') {
                         filterOData.push(key + '(' + prop + ', \'' + filter.value + '\')');
                     }
@@ -72,13 +69,13 @@ export class CustomerGridODataComponent implements OnInit {
         }
 
         if (event.sortField) {
-            let sortOrder: string = event.sortOrder > 0 ? 'asc' : 'desc';
+            const sortOrder: string = event.sortOrder > 0 ? 'asc' : 'desc';
             query = query.OrderBy(event.sortField + ' ' + sortOrder);
         }
 
         query
             .ExecWithCount()
-            .subscribe((pagedResult) => {
+            .subscribe((pagedResult: PagedResult<ICustomer>) => {
                     this.customers = pagedResult.data;
                     this.totalRecords = pagedResult.count;
                 },

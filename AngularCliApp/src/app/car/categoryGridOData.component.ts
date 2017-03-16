@@ -3,20 +3,17 @@ import { URLSearchParams, Http, Response } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { LazyLoadEvent, FilterMetadata } from 'primeng/primeng';
-import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery } from 'angular2-odata';
+import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery, PagedResult } from 'angular2-odata';
 import { Observable, Operator } from 'rxjs/rx';
 import { ICategory } from './category';
+import { NorthwindODataConfigurationFactory } from './NorthwindODataConfigurationFactory';
 
 console.log('`CategoryGridODataComponent` component loaded asynchronously');
 
 @Component({
     templateUrl: './categoryGridOData.component.html',
     selector: 'my-category-grid-odata',
-    providers: [ { provide: ODataConfiguration, useFactory: () => {
-        const odata = new ODataConfiguration();
-        odata.baseUrl = 'http://services.odata.org/V4/Northwind/Northwind.svc';
-        return odata; }
-    }, ODataServiceFactory ],
+    providers: [ { provide: ODataConfiguration, useFactory: NorthwindODataConfigurationFactory }, ODataServiceFactory ],
     styleUrls: [ './carGrid.component.css']
 })
 export class CategoryGridODataComponent implements OnInit {
@@ -79,7 +76,7 @@ export class CategoryGridODataComponent implements OnInit {
 
         query
             .ExecWithCount()
-            .subscribe((pagedResult) => {
+            .subscribe((pagedResult: PagedResult<ICategory>) => {
                     this.categories = pagedResult.data;
                     for (const cat of this.categories) {
                         // https://groups.google.com/forum/#!topic/odata4j-discuss/6amvlFgExEU
