@@ -8,7 +8,7 @@ export class CarService {
     constructor(private http: Http) {}
 
     public getCarsMedium() {
-        return this.http.get('/car/cars-medium.json')
+        return this.http.get('app/car/cars-medium.json')
           .map((response) => <Car[]> response.json().data);
     }
 }
