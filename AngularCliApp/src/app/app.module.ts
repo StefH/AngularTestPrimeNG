@@ -17,8 +17,8 @@ import { NoContentComponent } from './no-content';
 export const ROUTES: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'car', component: CarComponent },
-    { path: '**', redirectTo: 'home' }
+    { path: 'car', component: CarComponent }
+    // { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
@@ -34,7 +34,7 @@ export const ROUTES: Routes = [
     FormsModule,
     HttpModule,
 
-    RouterModule.forRoot(ROUTES), //, { useHash: true, preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(ROUTES),
 
     // import own modules
     CarModule,
