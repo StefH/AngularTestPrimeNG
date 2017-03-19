@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { LazyLoadEvent, FilterMetadata } from 'primeng/primeng';
-import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery, PagedResult } from 'angular2-odata';
+import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery, ODataPagedResult } from 'angular-odata-es5';
 import { Observable, Operator } from 'rxjs/rx';
 import { IEmployee } from './employee';
 import { NorthwindODataConfigurationFactory } from './NorthwindODataConfigurationFactory';
@@ -77,7 +77,7 @@ export class EmployeeGridODataComponent implements OnInit {
 
         query
             .ExecWithCount()
-            .subscribe((pagedResult: PagedResult<IEmployee>) => {
+            .subscribe((pagedResult: ODataPagedResult<IEmployee>) => {
                     this.employees = pagedResult.data;
                     this.totalRecords = pagedResult.count;
                 },

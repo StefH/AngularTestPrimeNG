@@ -3,7 +3,7 @@ import { URLSearchParams, Http, Response } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { LazyLoadEvent, FilterMetadata } from 'primeng/primeng';
-import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery, PagedResult } from 'angular2-odata';
+import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery, ODataPagedResult } from 'angular-odata-es5';
 import { Observable, Operator } from 'rxjs/rx';
 import { ICategory } from './category';
 import { NorthwindODataConfigurationFactory } from './NorthwindODataConfigurationFactory';
@@ -76,7 +76,7 @@ export class CategoryGridODataComponent implements OnInit {
 
         query
             .ExecWithCount()
-            .subscribe((pagedResult: PagedResult<ICategory>) => {
+            .subscribe((pagedResult: ODataPagedResult<ICategory>) => {
                     this.categories = pagedResult.data;
                     for (const cat of this.categories) {
                         // https://groups.google.com/forum/#!topic/odata4j-discuss/6amvlFgExEU

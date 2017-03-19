@@ -2,7 +2,7 @@ import { NgModule, Component, Injectable, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { LazyLoadEvent, FilterMetadata } from 'primeng/primeng';
-import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery, PagedResult } from 'angular2-odata';
+import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery, ODataPagedResult } from 'angular-odata-es5';
 import { Observable, Operator } from 'rxjs/rx';
 import { ICustomer } from './customer';
 import { NorthwindODataConfigurationFactory } from './NorthwindODataConfigurationFactory';
@@ -75,7 +75,7 @@ export class CustomerGridODataComponent implements OnInit {
 
         query
             .ExecWithCount()
-            .subscribe((pagedResult: PagedResult<ICustomer>) => {
+            .subscribe((pagedResult: ODataPagedResult<ICustomer>) => {
                     this.customers = pagedResult.data;
                     this.totalRecords = pagedResult.count;
                 },
