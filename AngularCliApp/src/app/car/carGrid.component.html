@@ -10,14 +10,14 @@
             (onLazyLoad)="loadCarsLazy($event)"
             [responsive]="true">
         <header>CRUD for Cars</header>
-        <p-column field="vin" header="Vin" [sortable]="true"></p-column>
-        <p-column field="year" header="Year" [sortable]="true" [filter]="true" filterMatchMode="contains">
+        <p-column field="Vin" header="Vin" [sortable]="true"></p-column>
+        <p-column field="Year" header="Year" [sortable]="true" [filter]="true" filterMatchMode="contains">
             <ng-template let-car="rowData" pTemplate="body">
-                <div pTooltip="{{car.brand}}" tooltipPosition="top">{{car.year | date:'medium' }}</div>
+                <div pTooltip="{{car.Brand}}" tooltipPosition="top">{{car.Year | date: 'medium' }}</div>
             </ng-template>
         </p-column>
-        <p-column field="brand" header="Brand" [sortable]="true" [filter]="true"></p-column>
-        <p-column field="color" header="Color" [sortable]="false"></p-column>
+        <p-column field="Brand" header="Brand" [sortable]="true" [filter]="true"></p-column>
+        <p-column field="Color" header="Color" [sortable]="false"></p-column>
         <footer>
             <div class="ui-helper-clearfix" style="width:100%">
                 <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button>

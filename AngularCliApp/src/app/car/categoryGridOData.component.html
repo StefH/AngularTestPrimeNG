@@ -5,7 +5,7 @@
             [rows]="5"
             [lazy]="true"
             [totalRecords]="totalRecords"
-            (onLazyLoad)="loadCategoriesLazy($event)"
+            (onLazyLoad)="loadCategoriesAsync($event)"
             [responsive]="true">
         <header>View Categories</header>
         <p-column field="CategoryID" header="Id" [sortable]="true"></p-column>
@@ -15,7 +15,6 @@
                 <img [src]="'data:image/bmp;base64,'+cat.Picture" width="20" height="20"/>
             </ng-template>
         </p-column>
-    
     </p-dataTable>
 
     <div>{{filter | json}}</div>

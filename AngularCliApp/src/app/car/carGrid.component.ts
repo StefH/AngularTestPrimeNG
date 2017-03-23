@@ -1,8 +1,10 @@
+import { TestODataConfigurationFactory } from './TestODataConfigurationFactory';
 import { Component, OnInit } from '@angular/core';
 import { Car } from './car';
 import { PrimeCar } from './primeCar';
-import { CarService } from './carservice';
-import { LazyLoadEvent } from 'primeng/primeng';
+// import { CarService } from './carservice';
+import { LazyLoadEvent, FilterMetadata } from 'primeng/primeng';
+import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery, ODataPagedResult } from 'angular-odata-es5';
 
 console.log('`CarGrid` component loaded asynchronously');
 
@@ -10,7 +12,7 @@ console.log('`CarGrid` component loaded asynchronously');
     // moduleId: module.id,     fully resolved filename; defined at module load time
     templateUrl: './carGrid.component.html',
     selector: 'my-car-grid',
-    providers: [ CarService ],
+    providers: [ { provide: ODataConfiguration, useFactory: TestODataConfigurationFactory }, ODataServiceFactory ],
     styleUrls: [ './carGrid.component.css']
 })
 export class CarGridComponent implements OnInit {
@@ -33,9 +35,10 @@ export class CarGridComponent implements OnInit {
 
     public filter: LazyLoadEvent;
 
-    public isDataLoading: boolean = true;
+    private odata: ODataService<Car>;
 
-    constructor(private carService: CarService) {
+    constructor(private odataFactory: ODataServiceFactory) {
+        this.odata = this.odataFactory.CreateService<Car>('CarsNoDatabase');
     }
 
     public ngOnInit() {
@@ -53,7 +56,7 @@ export class CarGridComponent implements OnInit {
         console.log('event = ' + JSON.stringify(event));
         this.filter = event;
 
-        this.getPagedData(event);
+        this.getPagedDataAsync(event);
     }
 
     public showDialogToAdd() {
@@ -99,17 +102,40 @@ export class CarGridComponent implements OnInit {
         return this.cars.indexOf(this.selectedCar);
     }
 
-    private getPagedData(event: LazyLoadEvent) {
-        this.isDataLoading = true;
-        setTimeout(() => {
-        this.carService.getCarsMedium().subscribe((cars) => {
-            console.log('`getCarsMedium`');
+    private getPagedDataAsync(event: LazyLoadEvent) {
+        let query: ODataQuery<Car> = this.odata
+            .Query()
+            .Top(event.rows)
+            .Skip(event.first);
 
-            this.datasource = cars;
-            this.totalRecords = this.datasource.length;
-            this.cars = this.datasource.slice(event.first, (event.first + event.rows));
-            this.isDataLoading = false;
-        });
-        }, 1000);
+        if (event.filters) {
+            const filterOData: string[] = [];
+            for (const prop in event.filters) {
+                if (event.filters.hasOwnProperty(prop)) {
+                    const filter = event.filters[prop] as FilterMetadata;
+                    const key: string = filter.matchMode.toLowerCase();
+                    if (key !== '') {
+                        filterOData.push(key + '(' + prop + ', \'' + filter.value + '\')');
+                    }
+                 }
+            }
+
+            query = query.Filter(filterOData.join(' and '));
+        }
+
+        if (event.sortField) {
+            const sortOrder: string = event.sortOrder > 0 ? 'asc' : 'desc';
+            query = query.OrderBy(event.sortField + ' ' + sortOrder);
+        }
+
+        query
+            .ExecWithCount()
+            .subscribe((pagedResult: ODataPagedResult<Car>) => {
+                    this.cars = pagedResult.data;
+                    this.totalRecords = pagedResult.count;
+                },
+                (error) => {
+                    console.log('getPagedData ERROR ' + error);
+                });
     }
 }

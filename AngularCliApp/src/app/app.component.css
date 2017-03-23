@@ -1,0 +1,12 @@
+.stef-container {
+  display: flex;
+}
+
+.stef-menu {
+  width: 200px;
+  background-color: azure;
+}
+
+.stef-main {
+    flex: 1;
+}

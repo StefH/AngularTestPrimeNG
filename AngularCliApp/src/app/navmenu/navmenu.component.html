@@ -1,12 +1,14 @@
-<ul class='nav navbar-nav'>
-    <li [routerLinkActive]="['link-active']">
-        <a [routerLink]="['/home']">
-            <span class='glyphicon glyphicon-home'></span> Home
-        </a>
-    </li>
-    <li [routerLinkActive]="['link-active']">
-        <a [routerLink]="['/car']">
-            <span class='glyphicon glyphicon-th-list'></span>Car (PrimeNG)
-        </a>
-    </li>
-</ul>
+<div class="main-nav">
+    <div class="menu-items">
+        <div [routerLinkActive]="['link-active']" class="menu-item">
+            <a [routerLink]="['/home']">
+                <span class='glyphicon glyphicon-home'></span> Home
+            </a>
+        </div>
+        <div [routerLinkActive]="['link-active']" class="menu-item">
+            <a [routerLink]="['/car']">
+                <span class='glyphicon glyphicon-th-list'></span>Car (PrimeNG)
+            </a>
+        </div>
+    </div>
+</div>

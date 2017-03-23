@@ -34,7 +34,7 @@ export class CategoryGridODataComponent implements OnInit {
         console.log('hello `CategoryGridODataComponent` component');
     }
 
-    public loadCategoriesLazy(event: LazyLoadEvent) {
+    public loadCategoriesAsync(event: LazyLoadEvent) {
         // in a real application, make a remote request to load data using state metadata from event
         // event.first = First row offset
         // event.rows = Number of rows per page
@@ -45,10 +45,10 @@ export class CategoryGridODataComponent implements OnInit {
         console.log('event = ' + JSON.stringify(event));
         this.filter = event;
 
-        this.getPagedData(event);
+        this.getPagedDataAsync(event);
     }
 
-    private getPagedData(event: LazyLoadEvent) {
+    private getPagedDataAsync(event: LazyLoadEvent) {
         let query: ODataQuery<ICategory> = this.odata
             .Query()
             .Top(event.rows)
