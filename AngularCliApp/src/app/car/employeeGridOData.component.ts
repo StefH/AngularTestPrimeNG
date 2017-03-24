@@ -1,3 +1,4 @@
+import { TestODataConfigurationFactory } from './TestODataConfigurationFactory';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { LazyLoadEvent, FilterMetadata } from 'primeng/primeng';
 import { ODataConfiguration, ODataServiceFactory, ODataService, ODataQuery, ODataPagedResult } from 'angular-odata-es5';
@@ -10,7 +11,7 @@ console.log('`EmployeeGridODataComponent` component loaded asynchronously');
 @Component({
     templateUrl: './employeeGridOData.component.html',
     selector: 'my-employee-grid-odata',
-    providers: [ { provide: ODataConfiguration, useFactory: NorthwindODataConfigurationFactory }, ODataServiceFactory ],
+    providers: [ { provide: ODataConfiguration, useFactory: TestODataConfigurationFactory }, ODataServiceFactory ],
     styleUrls: [ './carGrid.component.css']
 })
 

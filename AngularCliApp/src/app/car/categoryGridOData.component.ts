@@ -1,3 +1,4 @@
+import { TestODataConfigurationFactory } from './TestODataConfigurationFactory';
 import { NgModule, Component, Injectable, OnInit } from '@angular/core';
 import { URLSearchParams, Http, Response } from '@angular/http';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +14,7 @@ console.log('`CategoryGridODataComponent` component loaded asynchronously');
 @Component({
     templateUrl: './categoryGridOData.component.html',
     selector: 'my-category-grid-odata',
-    providers: [ { provide: ODataConfiguration, useFactory: NorthwindODataConfigurationFactory }, ODataServiceFactory ],
+    providers: [ { provide: ODataConfiguration, useFactory: TestODataConfigurationFactory }, ODataServiceFactory ],
     styleUrls: [ './carGrid.component.css']
 })
 export class CategoryGridODataComponent implements OnInit {

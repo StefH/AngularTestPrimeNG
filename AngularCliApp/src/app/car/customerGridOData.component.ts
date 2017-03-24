@@ -1,3 +1,4 @@
+import { TestODataConfigurationFactory } from './TestODataConfigurationFactory';
 import { NgModule, Component, Injectable, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,7 +13,7 @@ console.log('`CustomerGridODataComponent` component loaded asynchronously');
 @Component({
     templateUrl: './customerGridOData.component.html',
     selector: 'my-customer-grid-odata',
-    providers: [ { provide: ODataConfiguration, useFactory: NorthwindODataConfigurationFactory }, ODataServiceFactory ],
+    providers: [ { provide: ODataConfiguration, useFactory: TestODataConfigurationFactory }, ODataServiceFactory ],
     styleUrls: [ './carGrid.component.css']
 })
 export class CustomerGridODataComponent implements OnInit {
