@@ -52,18 +52,23 @@ export class EmployeeGridODataComponent implements OnInit {
             .Query()
             // .Expand('Orders($select=OrderID, CustomerID, EmployeeID, OrderDate, ShipName)')
             .Expand('Orders')
-            .Select(['EmployeeID', 'FirstName', 'LastName', 'BirthDate', 'Orders'])
-            .Top(event.rows)
-            .Skip(event.first);
+            .Select(['EmployeeID', 'FirstName', 'LastName', 'BirthDate', 'Orders']);
+
+        if (event.rows) {
+            query = query.Top(event.rows);
+        }
+
+        if (event.first) {
+            query = query.Skip(event.first);
+        }
 
         if (event.filters) {
             const filterOData: string[] = [];
             for (const prop in event.filters) {
                 if (event.filters.hasOwnProperty(prop)) {
                     const filter = event.filters[prop] as FilterMetadata;
-                    const key: string = filter.matchMode.toLowerCase();
-                    if (key !== '') {
-                        filterOData.push(key + '(' + prop + ', \'' + filter.value + '\')');
+                      if (filter.matchMode && filter.matchMode !== '') {
+                        filterOData.push(filter.matchMode.toLowerCase() + '(' + prop + ', \'' + filter.value + '\')');
                     }
                  }
             }
@@ -72,7 +77,7 @@ export class EmployeeGridODataComponent implements OnInit {
         }
 
         if (event.sortField) {
-            const sortOrder: string = event.sortOrder > 0 ? 'asc' : 'desc';
+            const sortOrder: string = event.sortOrder && event.sortOrder > 0 ? 'asc' : 'desc';
             query = query.OrderBy(event.sortField + ' ' + sortOrder);
         }
 
