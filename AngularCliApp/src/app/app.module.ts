@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { NoContentComponent } from './no-content';
 
 import { HeroDetailComponent } from './hero/hero-detail.component';
+import { HeroChildComponent } from './hero/hero-child.component';
 
 export const ROUTES: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -30,7 +31,8 @@ export const ROUTES: Routes = [
     NavMenuComponent,
     CarComponent,
     NoContentComponent,
-    HeroDetailComponent
+    HeroDetailComponent,
+    HeroChildComponent
   ],
   imports: [
     BrowserModule,

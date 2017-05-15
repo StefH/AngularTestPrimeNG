@@ -5,6 +5,20 @@
     <label class="center-block">Name:
       <input class="form-control" formControlName="name">
     </label>
+    child1:
+    <div formGroupName="child1">
+        <input formControlName="a">
+        <input formControlName="b">
+    </div>
+    child2:
+    <div formGroupName="child2">
+        <input formControlName="a">
+        <input formControlName="b">
+    </div>
+    -- adres 1
+    <hero-child [fg]="heroForm" fgn="x"></hero-child>
+    -- adres 2
+    <hero-child [fg]="heroForm" fgn="y"></hero-child>
   </div>
 </form>
 
